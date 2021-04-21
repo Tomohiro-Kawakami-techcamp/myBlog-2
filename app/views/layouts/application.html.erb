@@ -11,24 +11,22 @@
 
   <body>
     <header class="header">
-      <div class="header__bar row">
-        <% if user_signed_in? %>
-          <div class="user_nav grid-6">
-          <span><%= current_user.name %>
-          <ul class = "user__info">
-            <li>
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-            </li>
-          </ul>
-          </span>
-            <%= link_to "投稿する", new_item_path, class: "post" %>
+      <div class="inner">
+        <div class="nav">
+          <div class="nav__left">
           </div>
-        <% else %>
-          <div class="grid-6">
-            <%= link_to "ログイン", new_user_session_path, class: "post" %>
-            <%= link_to "新規登録", new_user_registration_path, class: "post" %>
-          </div>
-        <% end %>
+            <% if user_signed_in? %>
+             <div class="nav__right">
+               <%= link_to "ログアウト", destroy_user_session_path, class: :nav__logout, method: :delete %>
+               <%= link_to "記事投稿", new_item_path, class: :nav__btn %>
+             </div>
+          <% else %>
+            <div class="nav__right">
+              <%= link_to "ログイン", new_user_session_path, class: :nav__btn %>
+              <%= link_to "新規登録", new_user_registration_path, class: :nav__btn %>
+            </div>
+            <% end %>
+        </div>
       </div>
     </header>
     <%= yield %>
