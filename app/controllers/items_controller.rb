@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create(items_params)
+    @item = Item.create(item_params)
     if @item.save
       redirect_to  items_path
     else
@@ -26,5 +26,10 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+  def item_params
+    params.require(:item).permit(:title, :text, :image)
   end
 end
