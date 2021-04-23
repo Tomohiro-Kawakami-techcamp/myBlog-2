@@ -1,0 +1,50 @@
+<main class="main">
+  <div class="inner">
+    <div class="prototype__wrapper">
+      <p class="prototype__hedding">
+        <%= @item.title %>
+      </p>
+      <%#= link_to "by #{@prototype.user.name}", user_path(@prototype.user.id), class: :prototype__user %>
+        <div class="prototype__manage">
+        <% if user_signed_in? %>
+          <%= link_to "編集する", edit_item_path(@item.id), class: :prototype__btn %>
+          <%= link_to "削除する", item_path(@item.id), class: :prototype__btn, method: :delete %>
+          <% end %>
+        </div>
+      <div class="prototype__image">
+        <%= image_tag @item.image %>
+      </div>
+      <div class="prototype__body">
+        <div class="prototype__detail">
+          <p class="detail__title">記事内容</p>
+          <p class="detail__message">
+            <%= @item.text %>
+          </p>
+        </div>
+      </div>
+      <div class="prototype__comments">
+        <% if user_signed_in? %>
+           <%= form_with model:[@item,@message], local: true do |f|%>
+            <div class="field">
+               <%= f.label :comment, "コメント" %><br />
+               <%= f.text_field :comment %>
+            </div>
+            <div class="actions">
+               <%= f.submit "コメントする", class: :form__btn  %>
+            </div>
+           <% end %>
+        <ul class="comments_lists">
+              <% if @messages %>
+                 <% @messages.each do |message| %>
+            <li class="comments_list">
+                   <%= message.comment %>
+                   <%#= link_to message.user.name, user_path(message.user.id), class: :comment_user %>
+                 <% end %>
+               <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
